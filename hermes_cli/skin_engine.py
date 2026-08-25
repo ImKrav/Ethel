@@ -779,11 +779,16 @@ _BUILTIN_SKINS: Dict[str, Dict[str, Any]] = {
         "description": "Ethel — glitchcore purple, halftone-static aesthetic",
         # Dark-authored (primary mode). Deep violet-to-black background family
         # with a vivid orchid/violet accent ladder shared across both polarities.
+        # Foreground roles bottom out at #9D4EDD: the deeper swatches
+        # (#7B2CBF 2.67, #5A189A 1.84) fall under the TUI's soft-contrast floor
+        # of 2.8 against the dark pole, so they are reserved for fills and
+        # background surfaces. Readable ladder on dark: text 16.1 > title 10.3 >
+        # accent 7.1 > dim/border 4.1.
         "colors": {
-            "banner_border": "#7B2CBF",
+            "banner_border": "#9D4EDD",
             "banner_title": "#E0AAFF",
             "banner_accent": "#C77DFF",
-            "banner_dim": "#5A189A",
+            "banner_dim": "#9D4EDD",
             "banner_text": "#F3E8FF",
             "ui_accent": "#C77DFF",
             "ui_label": "#9D4EDD",
@@ -791,18 +796,18 @@ _BUILTIN_SKINS: Dict[str, Dict[str, Any]] = {
             "ui_error": "#ef5350",
             "ui_warn": "#ffa726",
             "prompt": "#F3E8FF",
-            "input_rule": "#7B2CBF",
+            "input_rule": "#9D4EDD",
             "response_border": "#9D4EDD",
             "status_bar_bg": "#10002B",
             "status_bar_text": "#E0AAFF",
             "status_bar_strong": "#C77DFF",
-            "status_bar_dim": "#5A189A",
+            "status_bar_dim": "#9D4EDD",
             "status_bar_good": "#8FBC8F",
             "status_bar_warn": "#C77DFF",
             "status_bar_bad": "#FF8C00",
             "status_bar_critical": "#FF6B6B",
             "session_label": "#9D4EDD",
-            "session_border": "#5A189A",
+            "session_border": "#9D4EDD",
             "completion_menu_bg": "#10002B",
             "completion_menu_current_bg": "#3C096C",
             "selection_bg": "#3C096C",
