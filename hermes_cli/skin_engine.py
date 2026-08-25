@@ -774,6 +774,114 @@ _BUILTIN_SKINS: Dict[str, Dict[str, Any]] = {
 [#F29C38]⠀⠀⠀⠀⠀⠀⠀⣼⡟⠀⠀⢻⣧⠀⠀⠀⠀⠀⠀⠀⠀[/]
 [dim #7A3511]⠀⠀⠀⠀⠀⠀⠀tail flame lit⠀⠀⠀⠀⠀⠀⠀⠀[/]""",
     },
+    "ada": {
+        "name": "ada",
+        "description": "Ada — glitchcore purple, halftone-static aesthetic",
+        # Dark-authored (primary mode). Deep violet-to-black background family
+        # with a vivid orchid/violet accent ladder shared across both polarities.
+        "colors": {
+            "banner_border": "#7B2CBF",
+            "banner_title": "#E0AAFF",
+            "banner_accent": "#C77DFF",
+            "banner_dim": "#5A189A",
+            "banner_text": "#F3E8FF",
+            "ui_accent": "#C77DFF",
+            "ui_label": "#9D4EDD",
+            "ui_ok": "#4caf50",
+            "ui_error": "#ef5350",
+            "ui_warn": "#ffa726",
+            "prompt": "#F3E8FF",
+            "input_rule": "#7B2CBF",
+            "response_border": "#9D4EDD",
+            "status_bar_bg": "#10002B",
+            "status_bar_text": "#E0AAFF",
+            "status_bar_strong": "#C77DFF",
+            "status_bar_dim": "#5A189A",
+            "status_bar_good": "#8FBC8F",
+            "status_bar_warn": "#C77DFF",
+            "status_bar_bad": "#FF8C00",
+            "status_bar_critical": "#FF6B6B",
+            "session_label": "#9D4EDD",
+            "session_border": "#5A189A",
+            "completion_menu_bg": "#10002B",
+            "completion_menu_current_bg": "#3C096C",
+            "selection_bg": "#3C096C",
+            "shell_dollar": "#C77DFF",
+            "voice_status_bg": "#10002B",
+        },
+        # Light overlay: same accent ladder (banner_accent/ui_accent/etc. keep
+        # their hex values), background/text polarity flipped to the palette's
+        # pale end so switching modes stays visually one coherent family.
+        "light_colors": {
+            "banner_title": "#5A189A",
+            "banner_accent": "#7B2CBF",
+            "banner_dim": "#9D4EDD",
+            "banner_text": "#3C096C",
+            "ui_accent": "#7B2CBF",
+            "ui_label": "#5A189A",
+            "ui_ok": "#2E7D32",
+            "ui_error": "#C62828",
+            "ui_warn": "#D97706",
+            "prompt": "#3C096C",
+            "response_border": "#5A189A",
+            "session_label": "#5A189A",
+            "status_bar_text": "#3C096C",
+            "status_bar_strong": "#5A189A",
+            "status_bar_dim": "#9D4EDD",
+            "status_bar_good": "#2E7D32",
+            "status_bar_warn": "#7B2CBF",
+            "status_bar_bad": "#C2410C",
+            "status_bar_critical": "#B91C1C",
+            "shell_dollar": "#7B2CBF",
+            "completion_menu_bg": "#F3E8FF",
+            "completion_menu_current_bg": "#E0AAFF",
+            "selection_bg": "#E0AAFF",
+            "status_bar_bg": "#F3E8FF",
+            "voice_status_bg": "#F3E8FF",
+        },
+        "spinner": {
+            "waiting_faces": ["(◈)", "(▓)", "(░)", "(×)", "(∎)"],
+            "thinking_faces": ["(◈)", "(▓)", "(░)", "(⌁)", "(∎)"],
+            "thinking_verbs": [
+                "decrypting", "parsing static", "tracing signal", "rendering noise",
+                "scanning frequencies", "corrupting cache", "reassembling packets", "syncing ghosts",
+            ],
+            "wings": [
+                ["⟪◈", "◈⟫"],
+                ["⟪▓", "▓⟫"],
+                ["⟪░", "░⟫"],
+                ["⟪×", "×⟫"],
+            ],
+        },
+        "branding": {
+            "agent_name": "Ada",
+            "welcome": "Welcome to Ada! Type your message or /help for commands.",
+            "goodbye": "Signal lost. ◈",
+            "response_label": " ◈ Ada ",
+            "prompt_symbol": "◈",
+            "help_header": "(◈) Available Commands",
+        },
+        "tool_prefix": "▒",
+        "banner_logo": """[bold #E0AAFF] █████╗ ██████╗  █████╗ [/]
+[bold #C77DFF]██╔══██╗██╔══██╗██╔══██╗[/]
+[#9D4EDD]███████║██║  ██║███████║[/]
+[#7B2CBF]██╔══██║██║  ██║██╔══██║[/]
+[#5A189A]██║  ██║██████╔╝██║  ██║[/]
+[#3C096C]╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝[/]""",
+        "banner_hero": """[#7B2CBF]⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[/]
+[#9D4EDD]⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀[/]
+[#9D4EDD]⠀⠀⠀⠀⠀⠀⠀⢠⣿⠏⠀◈⠀⠹⣿⡄⠀⠀⠀⠀⠀⠀⠀[/]
+[#C77DFF]⠀⠀⠀⠀⠀⠀⠀⣿⡟⠀⠀⠀⠀⠀⢻⣿⠀⠀⠀⠀⠀⠀⠀[/]
+[#C77DFF]⠀⠀⠀▓▓▓▓▓⣿⡇⠀⠀⠀⠀⠀⢸⣿▓▓▓▓▓⠀⠀⠀[/]
+[#9D4EDD]⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀[/]
+[#7B2CBF]⠀⠀⠀⠀⠀⠀⠀⢿⣧⠀⠀⠀⠀⠀⣼⡿⠀⠀⠀⠀⠀⠀⠀[/]
+[#7B2CBF]⠀⠀⠀⠀⠀⠀⠀⠘⢿⣷⣄⣀⣠⣾⡿⠃⠀⠀⠀⠀⠀⠀⠀[/]
+[#5A189A]⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀[/]
+[#5A189A]⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀[/]
+[#9D4EDD]⠀⠀⠀⠀⠀▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓⠀⠀⠀⠀⠀[/]
+[#C77DFF]⠀⠀⠀⠀⠀⠀▓▓▓▓▓▓▓▓▓▓▓▓▓⠀⠀⠀⠀⠀⠀[/]
+[dim #3C096C]⠀⠀⠀⠀⠀⠀⠀static holds the signal⠀⠀⠀⠀⠀⠀⠀[/]""",
+    },
 }
 
 
