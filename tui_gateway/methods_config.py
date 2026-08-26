@@ -213,8 +213,10 @@ def _(rid, params: dict) -> dict:
     if key == "prompt":
         return _ok(rid, {"prompt": _load_cfg().get("custom_prompt", "")})
     if key == "skin":
+        from hermes_cli.skin_engine import DEFAULT_SKIN_NAME
+
         return _ok(
-            rid, {"value": (_load_cfg().get("display") or {}).get("skin", "default")}
+            rid, {"value": (_load_cfg().get("display") or {}).get("skin", DEFAULT_SKIN_NAME)}
         )
     if key == "indicator":
         # Normalize so a hand-edited config.yaml with stray casing or

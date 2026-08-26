@@ -43,7 +43,9 @@ describe('DEFAULT_THEME', () => {
   it('has brand defaults', async () => {
     const { DEFAULT_THEME } = await importThemeWithCleanEnv()
 
-    expect(DEFAULT_THEME.brand.name).toBe('Hermes Agent')
+    // Fork divergence: the fallback brand is Ethel, not upstream's Hermes Agent.
+    expect(DEFAULT_THEME.brand.name).toBe('Ethel')
+    expect(DEFAULT_THEME.brand.icon).toBe('◈')
     expect(DEFAULT_THEME.brand.prompt).toBe('❯')
     expect(DEFAULT_THEME.brand.tool).toBe('┊')
   })

@@ -249,12 +249,15 @@ export function themeToneHex(tone: string): string {
 
 // ── Defaults ─────────────────────────────────────────────────────────
 
+// Fallback brand for before `gateway.ready` lands, and for any field the active
+// skin leaves unset. `icon` is NOT a skin branding key, so this one always wins
+// — it was the caduceus, which is Hermes iconography, not ours.
 const BRAND: ThemeBrand = {
-  name: 'Hermes Agent',
-  icon: '⚕',
+  name: 'Ethel',
+  icon: '◈',
   prompt: '❯',
   welcome: 'Type your message or /help for commands.',
-  goodbye: 'Goodbye! ⚕',
+  goodbye: 'Goodbye! ◈',
   tool: '┊',
   helpHeader: '(^_^)? Commands'
 }

@@ -54,9 +54,11 @@ export function ArtLines({ lines }: { lines: [string, string][] }) {
 // Terminals can't scale glyphs, so "responsive" means picking a layout that
 // fits the available columns. Thresholds are picked so each tier reads
 // comfortably without forcing wrap or truncation drift on box-drawing edges.
-const TAG_FULL = 'Nous Research · Messenger of the Digital Gods'
-const TAG_MID = 'Messenger of the Digital Gods'
-const TAG_TINY = 'Nous Research'
+// Was 'Nous Research · Messenger of the Digital Gods' — the messenger epithet is
+// Hermes' own. Degrades full → mid → tiny as the terminal narrows, same as before.
+const TAG_FULL = 'static holds the signal'
+const TAG_MID = 'holds the signal'
+const TAG_TINY = 'static'
 const HIDE_BELOW = 34
 const COMPACT_FROM = 58
 

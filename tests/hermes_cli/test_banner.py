@@ -51,7 +51,10 @@ def test_build_welcome_banner_title_falls_back_when_no_tag():
         )
 
     raw = buf.getvalue()
-    assert "Hermes Agent v" in raw, "Version label missing from title"
+    # Fork divergence: the title carries the active skin's brand, and this build
+    # defaults to the ethel skin (skin_engine.DEFAULT_SKIN_NAME) instead of the
+    # `default` skin upstream ships, so the label reads "Ethel v…".
+    assert "Ethel v" in raw, "Version label missing from title"
     assert "\x1b]8;" not in raw, "OSC-8 hyperlink should not be emitted without a tag"
 
 

@@ -894,8 +894,13 @@ _BUILTIN_SKINS: Dict[str, Dict[str, Any]] = {
 # Skin loading and management
 # =============================================================================
 
+# Skin this fork starts in when nothing is configured. `"default"` stays the
+# INHERITANCE base in `_build_skin_config` (it supplies every key a skin omits);
+# this constant is only about which skin is active out of the box.
+DEFAULT_SKIN_NAME = "ethel"
+
 _active_skin: Optional[SkinConfig] = None
-_active_skin_name: str = "default"
+_active_skin_name: str = DEFAULT_SKIN_NAME
 
 
 def _skins_dir() -> Path:
@@ -1016,9 +1021,9 @@ def load_skin(name: str) -> SkinConfig:
     if name in _BUILTIN_SKINS:
         return _build_skin_config(_BUILTIN_SKINS[name])
 
-    # Fallback to default
-    logger.warning("Skin '%s' not found, using default", name)
-    return _build_skin_config(_BUILTIN_SKINS["default"])
+    # Fallback to this fork's default skin
+    logger.warning("Skin '%s' not found, using %s", name, DEFAULT_SKIN_NAME)
+    return _build_skin_config(_BUILTIN_SKINS[DEFAULT_SKIN_NAME])
 
 
 def get_active_skin() -> SkinConfig:
@@ -1050,11 +1055,11 @@ def init_skin_from_config(config: dict) -> None:
     display = config.get("display") or {}
     if not isinstance(display, dict):
         display = {}
-    skin_name = display.get("skin", "default")
+    skin_name = display.get("skin", DEFAULT_SKIN_NAME)
     if isinstance(skin_name, str) and skin_name.strip():
         set_active_skin(skin_name.strip())
     else:
-        set_active_skin("default")
+        set_active_skin(DEFAULT_SKIN_NAME)
 
 
 # =============================================================================

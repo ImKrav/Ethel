@@ -878,14 +878,14 @@ class CLIAgentSetupMixin:
         try:
             from hermes_cli.skin_engine import get_active_skin
             _skin = get_active_skin()
-            _history_text_c = _skin.get_color("banner_text", "#FFF8DC")
-            _session_label_c = _skin.get_color("session_label", "#DAA520")
+            _history_text_c = _skin.get_color("banner_text", "#F3E8FF")
+            _session_label_c = _skin.get_color("session_label", "#9D4EDD")
             _session_border_c = _skin.get_color("session_border", "#8B8682")
             _assistant_label_c = _skin.get_color("ui_ok", "#8FBC8F")
         except Exception:
-            _history_text_c = "#FFF8DC"
-            _session_label_c = "#DAA520"
-            _session_border_c = "#8B8682"
+            _history_text_c = "#F3E8FF"
+            _session_label_c = "#9D4EDD"
+            _session_border_c = "#9D4EDD"
             _assistant_label_c = "#8FBC8F"
 
         lines = Text()

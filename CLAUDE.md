@@ -53,8 +53,6 @@ Hecho (PR #2):
 - **Banner**: `_banner_agent_name()` en `hermes_cli/banner.py` lee
   `branding.agent_name` del skin activo, con fallback a `"Hermes Agent"`.
 - **`cli-config.yaml.example`**: `skin: ethel` para instalaciones nuevas.
-  Ojo: el fallback en código (`skin_engine.py`) sigue siendo `"default"`;
-  el default de Ethel solo aplica vía el archivo de ejemplo.
 - **Sitio y README**: título/navbar Docusaurus, `custom.css`, cabecera de
   `README.md`, banner/logo/favicons.
 
@@ -100,6 +98,69 @@ No lo «arregles» sin querer — cada uno tiene un motivo:
 Consecuencia asumida: el instalador, el `.exe` y la carpeta de instalación
 siguen llamándose Hermes. En la barra de tareas y en Agregar o quitar
 programas verás Hermes; dentro de la app, Ethel.
+
+## Ethel es el default, no una opción
+
+Una instalación sin configurar arranca en Ethel en las tres superficies. Esto
+diverge de upstream a propósito, así que si un merge lo revierte, es regresión:
+
+| Dónde | Qué |
+|---|---|
+| `hermes_cli/skin_engine.py` | `DEFAULT_SKIN_NAME = "ethel"` — la fuente de verdad. Ojo: `_BUILTIN_SKINS["default"]` sigue siendo la **base de herencia** en `_build_skin_config` (rellena las claves que un skin omite); eso no se toca |
+| `hermes_cli/skin_cmd.py`, `tui_gateway/server.py`, `tui_gateway/methods_config.py` | Resolvían el skin activo por su cuenta con fallback `"default"`; ahora importan `DEFAULT_SKIN_NAME` |
+| `hermes_cli/config_defaults.py`, `cli.py` | `"skin": "ethel"` en los diccionarios de config por defecto |
+| `apps/desktop/src/themes/presets.ts` | `ethelTheme` en `BUILTIN_THEMES` (primero en la lista) + `DEFAULT_SKIN_NAME = 'ethel'` |
+| `apps/desktop/src/themes/context.tsx` | Los `?? nousTheme` de respaldo y el valor por defecto del contexto pasan a `ethelTheme`. **Excepción**: la línea de `typography` sigue en `nousTheme` — es la base tipográfica de toda la app, no identidad |
+| `apps/desktop/src/themes/use-skin-command.ts` | Alias `default → ethel` (coherente con `RETIRED_SKINS`). `gold` y `hermes` siguen apuntando a `nous`: nombran el look de upstream, no «el default» |
+
+Como `ethel` es built-in del Desktop, `ingestBackendSkin` **no** lo sobreescribe
+con la conversión automática del skin del CLI — gana la paleta hecha a mano.
+
+Test de upstream ajustado a propósito: `presets.test.ts` afirmaba
+`DEFAULT_SKIN_NAME === 'nous'`. La divergencia vive en su propio `describe`
+(«ethel is this fork default skin») para que el test de upstream siga
+reconocible al mergear.
+
+### Cero dorado
+
+Decisión del dueño del fork: **no queda dorado en ningún camino que se renderice.**
+Auditado emitiendo el banner real y clasificando cada secuencia ANSI truecolor:
+**72 secuencias, 72 violetas, 0 doradas.**
+
+Qué se convirtió, más allá del skin:
+
+- `HERMES_AGENT_LOGO` / `HERMES_CADUCEUS` (`hermes_cli/banner.py`, y las copias
+  muertas de `cli.py`) — eran el wordmark «HERMES AGENT» y el caduceo en dorado,
+  y salían con cualquier skin que no traiga arte propio (el skin `default` no lo
+  trae). Ahora son el wordmark ETHEL y el hero `◈` en la rampa violeta.
+- `_GOLD` y `_ACCENT_ANSI_DEFAULT` — ANSI crudo `#FFD700` → `#C77DFF` / `#9D4EDD`.
+- `_tui_style_base` en `cli.py` — la barra de estado y los `input-rule` base
+  estaban en dorado y bronce sobre `#1a1a2e`; ahora violeta sobre `#10002B`. Los
+  tonos semánticos (good/bad/critical/yolo) se quedan: son estado, no marca.
+- El panel de «Out of credits» tenía borde bronce cableado.
+- Todos los fallbacks `get_color(clave, "#FFD700")` y las ramas `except`.
+- `_build_compact_banner` ya no tiene la rama especial que imprimía
+  «⚕ NOUS HERMES» para el skin `default`: el producto es Ethel con cualquier
+  paleta, así que siempre usa el `agent_name` del skin.
+
+Lo único dorado que queda a propósito:
+
+- `_BUILTIN_SKINS["default"]` en `skin_engine.py` — es el skin «Classic Hermes —
+  gold and kawaii». Si lo eliges explícitamente, dorado es lo correcto.
+- Las **claves** de `_LIGHT_MODE_REMAP` en `cli.py` — son la entrada de una tabla
+  de búsqueda para remapear colores a terminales claros, no marca. Se añadieron
+  las entradas de Ethel (`#F3E8FF`, `#E0AAFF`, `#C77DFF`, `#9D4EDD`) para que la
+  paleta sea legible sobre fondo crema.
+- Comentarios que citan hex dorados al explicar esa tabla.
+
+Test de upstream ajustado: `tests/hermes_cli/test_banner.py` afirmaba
+`"Hermes Agent v" in raw`; ahora `"Ethel v"`.
+
+**Brillo y paleta son ejes distintos** (el propio panel lo dice: «Mode is
+brightness; theme is palette»). El modo por defecto sigue al sistema, así que en
+un Windows en claro Ethel se ve como violeta claro sintetizado, y en oscuro como
+el glitchcore de `#10002B`. Si algún día quieres el oscuro siempre, eso es el
+default de `mode`, no del tema.
 
 ## Paleta Ethel
 

@@ -2,10 +2,14 @@ import { useCallback } from 'react'
 
 import { useTheme } from './context'
 
-// Retired skin names land on the canonical Nous skin so old muscle memory works.
+// Retired skin names land on a live skin so old muscle memory works. `default`
+// means "whatever this build ships as its default", which on this fork is ethel
+// — matching how RETIRED_SKINS resolves a persisted `default` in context.tsx.
+// `gold` / `hermes` name the upstream look specifically, so they keep pointing
+// at the Nous palette rather than following the default.
 const ALIASES: Record<string, string> = {
   ares: 'ember',
-  default: 'nous',
+  default: 'ethel',
   gold: 'nous',
   hermes: 'nous',
   'nous-light': 'nous'

@@ -845,7 +845,55 @@ export const slateTheme: DesktopTheme = {
   }
 }
 
+/**
+ * This fork's identity palette. Same violet ramp as the CLI `ethel` skin
+ * (`hermes_cli/skin_engine.py`), so the desktop, the CLI and the TUI read as one
+ * product out of the box:
+ *
+ *   #F3E8FF text · #E0AAFF titles · #C77DFF accent · #9D4EDD dim
+ *   #5A189A borders · #3C096C fills · #10002B ground
+ *
+ * Because `ethel` is a built-in here, `ingestBackendSkin` deliberately does NOT
+ * shadow it with the naive CLI→desktop conversion — this hand-tuned palette wins.
+ */
+export const ethelTheme: DesktopTheme = {
+  name: 'ethel',
+  label: 'Ethel',
+  description: 'Glitchcore violet — halftone static',
+  colors: {
+    background: '#10002B',
+    foreground: '#F3E8FF',
+    card: '#180840',
+    cardForeground: '#F3E8FF',
+    muted: '#240B58',
+    mutedForeground: '#9D4EDD',
+    popover: '#1B0748',
+    popoverForeground: '#F3E8FF',
+    primary: '#F3E8FF',
+    primaryForeground: '#10002B',
+    secondary: '#3C096C',
+    secondaryForeground: '#E0AAFF',
+    accent: '#3C096C',
+    accentForeground: '#E0AAFF',
+    border: '#5A189A',
+    input: '#5A189A',
+    ring: '#C77DFF',
+    midground: '#C77DFF',
+    destructive: '#B0304F',
+    destructiveForeground: '#fef2f2',
+    sidebarBackground: '#0A0020',
+    sidebarBorder: '#3C096C',
+    userBubble: '#240B58',
+    userBubbleBorder: '#5A189A'
+  },
+  typography: {
+    fontMono: `"JetBrains Mono", ${SYSTEM_MONO}`,
+    fontUrl: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap'
+  }
+}
+
 export const BUILTIN_THEMES: Record<string, DesktopTheme> = {
+  ethel: ethelTheme,
   nous: nousTheme,
   github: githubTheme,
   catppuccin: catppuccinTheme,
@@ -862,4 +910,4 @@ export const BUILTIN_THEMES: Record<string, DesktopTheme> = {
 export const BUILTIN_THEME_LIST = Object.values(BUILTIN_THEMES)
 
 /** Skin used when nothing is persisted or the persisted name is retired. */
-export const DEFAULT_SKIN_NAME = 'nous'
+export const DEFAULT_SKIN_NAME = 'ethel'
