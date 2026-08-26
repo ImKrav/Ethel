@@ -64,7 +64,42 @@ Pendiente / gaps conocidos:
   `ethel`** en la tabla de skins.
 - `README.es.md`, `README.zh-CN.md`, `README.ur-pk.md` siguen con la cabecera
   de Hermes. Decisión abierta: retematizarlos o dejarlos como upstream.
-- La app de escritorio (`apps/desktop/`) y el dashboard no están retematizados.
+- El dashboard web (`web/`) no está retematizado.
+
+Hecho después (rebrand del Desktop y del `--help`):
+
+- `hermes --help` dice «Ethel - AI assistant...» (`hermes_cli/_parser.py`). El
+  `prog` sigue siendo `hermes` y los ejemplos del epílogo también.
+- **Desktop (`apps/desktop/`) — rebrand de pantalla, no de empaquetado.**
+  `APP_NAME` en `electron/main.ts`, `<title>` de `index.html`, los cinco
+  ficheros de `src/i18n/` (en, ar, ja, zh, zh-hant) y el texto visible de
+  `src/` + `electron/`. Las expectativas de test se alinearon con los textos
+  nuevos.
+- Ojo, contra lo que parece: **el Desktop sí consume el skin del backend.**
+  `src/themes/backend-sync.ts` escucha `gateway.ready` / `skin.changed` y
+  `src/themes/skin.ts` (`skinToDesktopTheme`) convierte la paleta del CLI en un
+  `DesktopTheme`. La paleta morada de Ethel ya llegaba sola; lo único que
+  faltaba era el nombre.
+
+### Qué sigue diciendo Hermes en el Desktop, y por qué
+
+No lo «arregles» sin querer — cada uno tiene un motivo:
+
+| Superficie | Motivo |
+|---|---|
+| `package.json` `build.*` (productName, executableName, appId, artifactName, protocolo `hermes://`, NSIS/DMG) | Decisión explícita: el rebrand es de pantalla. El ejecutable, el instalador y la carpeta de instalación siguen siendo Hermes |
+| `Hermes Cloud` | Servicio hospedado de Nous (`makeNousCloudBackendDownError`). Renombrarlo haría que la app mienta sobre en qué cuenta inicias sesión |
+| `X-Hermes-Session-Token` | Cabecera HTTP del protocolo con el backend |
+| `hermes:` en IPC (`hermes:fs:readDir`, …) | Namespace de canales de Electron, interno |
+| `Hermes.app`, `Hermes.exe`, `[\\/]Hermes$` en `desktop-uninstall.ts`, fixtures de ruta en tests | Rutas reales derivadas del productName, que no cambia |
+| `/No (?:inference\|Hermes) provider/` en `provider-setup-errors.ts` | Empareja el mensaje de error que emite el backend **Python**, que no está retematizado |
+| «portal's Hermes Agent page» | Página del Nous Portal, servicio de terceros |
+| `Copyright © 2026 Nous Research` en el panel About | Es un aviso de copyright, no branding. Sustituirlo por uno propio sería reclamar autoría ajena |
+| Comentarios y JSDoc | Se dejan a propósito: no son visibles y cambiarlos multiplica los conflictos al mergear con upstream |
+
+Consecuencia asumida: el instalador, el `.exe` y la carpeta de instalación
+siguen llamándose Hermes. En la barra de tareas y en Agregar o quitar
+programas verás Hermes; dentro de la app, Ethel.
 
 ## Paleta Ethel
 
